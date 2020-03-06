@@ -1,22 +1,8 @@
-# Price and Guest Satisfaction for AirBnB listings in Cascadian cities
+# Cascadian Airbnb
 
 ## Overview and motivation
 
-We're interesting in learning more about AirBnb listings in three major Pacific Northwest cities: Vancouver BC, Seattle WA, and Portland OR. More specifically, we'd like to learn more about the price of listings and better understand guest satisfaction. In particular, we'll explore answers to the following related sets of questions:
-
-Price:
-
-1. How does listing price relate to location? How do listings prices of compare across each of the three cities? Which neighborhoods have the highest and lowest priced listings?
-
-2. How do listing prices change over time? What trends in price can we identify across all three cities? Within them?
-
-Guest Satisfaction:
-
-3. How does overall guest satisfaction relate to location? Which cities have the highest and lowest satisfaction? Which neighbourhoods? 
-
-4. How do listing prices in neighbourhoods relate to guest satisfaction?
-
-5. Which listing features are most closely related to guest satisfaction?
+As a frequent Airbnb guest in Vancouver BC, Seattle WA, and Portland OR, I wanted to learn more about Airbnb listings in these cities. More specifically, I wanted to know more about the price of listings and better understand guest satisfaction.
 
 
 ## Requirements
@@ -25,20 +11,23 @@ Python version is `3.7.6`. Packages and dependencies were managed using a conda 
 
 ## Files
 
-- `getdata.sh`: Bash script for downloading and unzipping datasets
+- `getdata.sh`: Bash script for downloading and unzipping original datasets
 for wrangling. In the terminal from the root directory
 
-```sh getdata.sh``` 
-- `wrangle.py`: Python script for wrangling data and producing cleaned datasets. Produces two datasets which can be found locally as h5 files `~/data/listings.h5` and `~/data/calendar.h5`. In the terminal, from the root directory
-  
-  ```python wrangle.py``` 
+    sh getdata.sh
+
+Use this if you want to just get the original datasets.
+
+- `wrangle.py`: Python script for wrangling data and producing cleaned datasets. In the terminal, from the root directory
+ 
+    python wrangle.py
 
 - `wrangling.ipynb`: In this notebook we clean and prepare data for analysis and modeling. Produces same datasets as `wrangle.py`
 - `analysis-and-modeling.ipynb`: In this notebook we explore answers to the questions above and summarize our findings.
 
 - `cascbnb.yml`: YAML file for setting up conda virtual environment. You can create the environment with 
 
-  ```conda env create -f cascbnb.yml```
+    conda env create -f cascbnb.yml
 
 
 ## Summary of results
@@ -102,7 +91,7 @@ Interestingly, we failed to find a meaningful association between neighbourhood 
 
 This is pretty good news for the budget traveler!
 
-###  Which listing features are most closely related to guest satisfaction?
+### Which listing features are most closely related to guest satisfaction?
 
 Among the most important listing features related to guest satisfaction were
 
@@ -113,6 +102,6 @@ Among the most important listing features related to guest satisfaction were
 - How many people the listing accommodates and how many extra people are allowed.
 
 
-## Acknowledgments
+### Acknowledgments
 
-Special thanks to [InsideAirBnb](http://insideairbnb.com/get-the-data.html) for providing the data, and to the many  contributors and maintainers of the open-source tools used for this project.
+Special thanks to [InsideAirvnb](http://insideairbnb.com/get-the-data.html) for providing the data, and to the many  contributors and maintainers of the open-source tools used for this project.

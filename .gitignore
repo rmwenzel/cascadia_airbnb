@@ -133,13 +133,13 @@ dmypy.json
 # Mac OS files
 .DS_Store
 
-# ignore data files
+# data files
 *.h5
 *.csv
 *.geojson
 
-# ignore scratch notebook
-scratch.ipynb
+# data dir
+/data
 
 
 05718a339ef08813fab4c7e9fc374bf7724bfd26

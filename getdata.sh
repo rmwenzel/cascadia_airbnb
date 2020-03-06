@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mkdir ./data/
 cd ./data/
 
 ## portland data
@@ -16,11 +17,11 @@ mv neighbourhoods.geojson portland_neighbourhoods.geojson
 wget http://data.insideairbnb.com/united-states/wa/seattle/2020-02-22/data/listings.csv.gz
 gunzip listings.csv.gz
 mv listings.csv seattle_listings.csv
-!wget http://data.insideairbnb.com/united-states/wa/seattle/2020-02-22/data/calendar.csv.gz
+wget http://data.insideairbnb.com/united-states/wa/seattle/2020-02-22/data/calendar.csv.gz
 gunzip calendar.csv.gz
 mv calendar.csv seattle_calendar.csv
 wget http://data.insideairbnb.com/united-states/wa/seattle/2020-02-22/visualisations/neighbourhoods.geojson
-mv neighbourhoods.geojson vancouver_neighbourhoods.geojson
+mv neighbourhoods.geojson seattle_neighbourhoods.geojson
 
 ## vancouver data
 wget http://data.insideairbnb.com/canada/bc/vancouver/2020-02-16/data/listings.csv.gz

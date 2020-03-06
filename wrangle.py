@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 import re
+import os
 from collections import defaultdict
 from pandas.api.types import CategoricalDtype
 from functools import partial
@@ -77,7 +78,7 @@ def set_ord_cat_dtypes(listings_df, conv_dtypes, ord_cat_cols):
 
 def conv_cad_to_usd(entry):
     """Currency conversion helper."""
-    return 0.75341*entry
+    return round(0.76124*entry, 0)
 
 
 def conv_to_float(entry):
@@ -108,7 +109,7 @@ def conv_curr_cols(df, curr_cols, curr_conv_func):
     """Convert currency columns."""
     df_cp = df.copy()
     df_cp.loc[:, curr_cols] = \
-        df_cp[curr_cols].apply(lambda x: conv_cad_to_usd(x) 
+        df_cp[curr_cols].apply(lambda x: conv_cad_to_usd(x)
                                if 'vancouver' in x.name else x, axis=1)
     return df_cp
 
@@ -234,6 +235,10 @@ def get_amenities_df(amenities_series, amenities_cols):
 
 if __name__ == '__main__':
 
+    #
+    # download and unzip data sets
+    #
+    os.system('sh getdata.sh')
     #
     # load dfs
     #
@@ -472,3 +477,9 @@ if __name__ == '__main__':
     calendar_df = alphabetize_cols(calendar_df, first_col='listing_id')
     calendar_df.to_hdf('data/calendar.h5', key='calendar',
                        mode='w', format='table')
+
+    # delete unwanted dataset
+    datadir = './data'
+    for item in os.listdir(datadir):
+        if item.endswith('.csv'):
+            os.remove(os.path.join(datadir, item))
