@@ -68,7 +68,7 @@ The January-February 2021 price increase is most pronounced in Portland in fact 
 
 Ratings overall were very high, with 50% of listings recieving a rating of 97 or above. We found that Portland has higher listing ratings than Seattle or Vancouver. We found that Portland had higher listing ratings than Seattle or Vancouver - the median ratings were Portland 98, Seattle 97, and Vancouver 97. 
 
-	Among neighbourhoods with at least 10 listings, the 5 neighbourhoods with highest and lowest ratings in each city were
+Among neighbourhoods with at least 10 listings, the 5 neighbourhoods with highest and lowest ratings in each city were
 
 | Portland   							 |  Seattle  					| Vancouver   					|
 |-------------------------:|-------------------:|----------------------:|
