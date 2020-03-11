@@ -104,4 +104,4 @@ Among the most important listing features related to guest satisfaction were
 
 ### Acknowledgments
 
-Special thanks to [InsideAirvnb](http://insideairbnb.com/get-the-data.html) for providing the data, and to the many  contributors and maintainers of the open-source tools used for this project.
+Special thanks to [InsideAirbnb](http://insideairbnb.com/get-the-data.html) for providing the data, and to the many  contributors and maintainers of the open-source tools used for this project.
