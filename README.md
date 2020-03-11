@@ -1,8 +1,8 @@
-# Cascadian Airbnb
-
 ## Overview and motivation
 
 As a frequent Airbnb guest in Vancouver BC, Seattle WA, and Portland OR, I wanted to learn more about Airbnb listings in these cities. More specifically, I wanted to know more about the price of listings and better understand guest satisfaction.
+
+I used the most recent AirBnb data available for all three cities (February 2020) from [InsideAirBnb](http://insideairbnb.com/get-the-data.html) and cleaned and analyzed it using standard Python tools.
 
 
 ## Requirements
@@ -12,84 +12,84 @@ Python version is `3.7.6`. Packages and dependencies were managed using a conda 
 ## Files
 
 - `getdata.sh`: Bash script for downloading and unzipping original datasets
-for wrangling. In the terminal from the root directory
+for wrangling. In the terminal, from the root directory
 
-    sh getdata.sh
+    ```sh getdata.sh```
 
 Use this if you want to just get the original datasets.
 
 - `wrangle.py`: Python script for wrangling data and producing cleaned datasets. In the terminal, from the root directory
  
-    python wrangle.py
+  ```python wrangle.py```
 
 - `wrangling.ipynb`: In this notebook we clean and prepare data for analysis and modeling. Produces same datasets as `wrangle.py`
 - `analysis-and-modeling.ipynb`: In this notebook we explore answers to the questions above and summarize our findings.
 
 - `cascbnb.yml`: YAML file for setting up conda virtual environment. You can create the environment with 
 
-    conda env create -f cascbnb.yml
+    ```conda env create -f cascbnb.yml```
 
 
 ## Summary of results
 
 ### How do listing prices relate to location?
 
-We found that while prices were distributed similarly across all three cities, Portland has the lowest median listing price while Seattle has the highest. As of November 2019, the median prices of listings (in USD) were Portland $90, Vancouver $97, Seattle $115.
+We found that while prices were distributed similarly across all three cities, Portland has the lowest median listing price while Seattle has the highest. Portland had the lowest listing price while Seattle had the highest - the median prices of listings (in USD) were Portland $90, Vancouver $95, Seattle $115.
 
-We found some evidence that neighbourhoods closer to downtown were more expensive in all three cities. Among neighbourhoods with at least 10 listings, the 5 most and least expensive neighbourhoods to visit (by median price) in each city were
+We found some evidence that neighbourhoods closer to downtown were more expensive in all three cities. Among neighbourhoods with at least 10 listings, the 5 most and least expensive neighbourhoods (by median price) in each city were
 
-| Portland   							  |  Seattle  										 | Vancouver   					|
-|---------------------------|--------------------------------|----------------------|
-|Pearl  								$180|Central Business District $252.5|Downtown					$133|
-|Downtown               $180|Pike-Market								 $243|Downtown-Eastside $124|
-|Bridgeton              $139|International District			 $195|Kitsilano					$109|
-|Grant Park       			$125|Briarcliff									 $190|West End       		$105|
-|Goose Hollow           $120|First Hill 								 $169|Mount Pleasant		$102|
+|Portland   							   |Seattle  								  		   | Vancouver   					 |
+|---------------------------:|--------------------------------:|----------------------:|
+|Pearl  								 $180|Central Business District  $285.5|Downtown				 $120.5|
+|Downtown                $169|Pike-Market								   $201|Downtown-Eastside  $113|
+|Northwest District      $120|International District			 $195|Kitsilano					 $112|
+|Goose Hollow      		 $119.5|Pioneer Square						 $187.5|Mount Pleasant   $103.5|
+|Bridgeton               $120|Briarcliff 								   $182|West End		       $100|
 
 
-| Portland   							 |  Seattle  					        | Vancouver   					|
-|--------------------------|----------------------------|-----------------------|
-|Centennial  			 			$44|Meadowbrook							 $50|Oakridge						 $57|
-|Mill Park              $45|Holly Park  	      	   $55|Renfrew-Collingwood $60|
-|Lents                  $50|Dunlap   	        			 $59|Marpole						 $68|
-|Madison South         	$50|Pinehurst								 $60|Victoria-Fraserview $68|
-|Hazelwood              $55|North College Park       $65|Killarney					 $72|
+| Portland   							  |  Seattle  					        | Vancouver   					 |
+|--------------------------:|----------------------------:|-----------------------:|
+|Mill Park  			 		 	 $44|Meadowbrook							 $51|Renfrew-Collingwood	$57|
+|Centennial              $45|Dunlap  	      	         $60|Oakridge						  $60|
+|Lents                   $50|High Point   	        	 $65|Victoria-Fraserview	$68|
+|Madison South         	 $50|North College Park				 $65|Killarney   				  $68|
+|Parkrose                $55|Pinehurst                 $65|Marpole	  					$72|
 
 
 ### How do listing prices change over time?
 
-We found expected weekly and seasonal trends in overall price, with lows in November, a short-lived spike around the winter holidays and a steady increase in price peaking in late summer. These trends were similar for all three cities, although the summer increase in price was more pronounced for Seattle. Portland has an unusual large spike in price on October 10, 2020. 
+We found an expected weekly trend in overall price, as well as a seasonal trend, with a steady increase in price from early spring to summer. Price declined again reaching a low around the 2021 winter holidays but then strangely rising again in January-February 2021.
+
+Price by city showed similar patterns -- weekly price fluctuations and a steady increase reaching a maximum in late summer but there were some clear differences. The weekly price trend is much less pronounced in Vancouver than Seattle and Portland, while the summer price trend is much more pronounced in Seattle than Vancouver or Portland. Seattle and Portland prices both show the January-February 2021 increase we saw overall but Vancouver price does not.
+
+The January-February 2021 price increase is most pronounced in Portland in fact at its peak it exceeds peak summer price by around $10 (about 8%). During this time, Portland median price exceeds Vancouver's.
 
 ### How does overall guest satisfaction relate to location?
 
-Ratings overall were very high, with 50% of listings recieving a rating of 97 or above. We found that Portland has higher listing ratings than Seattle or Vancouver. As of November 2019, the median ratings were 98 (Portland), 97 (Seattle), and 97 (Vancouver). 
+Ratings overall were very high, with 50% of listings recieving a rating of 97 or above. We found that Portland has higher listing ratings than Seattle or Vancouver. We found that Portland had higher listing ratings than Seattle or Vancouver - the median ratings were Portland 98, Seattle 97, and Vancouver 97. 
 
 	Among neighbourhoods with at least 10 listings, the 5 neighbourhoods with highest and lowest ratings in each city were
 
 | Portland   							 |  Seattle  					| Vancouver   					|
-|--------------------------|--------------------|-----------------------|
+|-------------------------:|-------------------:|----------------------:|
 |West Portland Park  		100|Interbay    	   100|Mount Pleasant				98|
 |Alameda                 99|Laurelhurst  	  99.5|Riley Park					 	98|
-|Concordia               99|Windermere   	  99.5|Arbutus Ridge				97|
-|Hosford-Abernethy       99|East Queen Anne   99|Downtown Eastside		97|
-|Humboldt                99|Fairmount Park    99|Dunbar Southlands		97|
-
+|Centennial              99|Crown Hill   	    99|Arbutus Ridge				97|
+|Concordia     					 99|East Queen Anne   99|Downtown Eastside		97|
+|Eastmoreland            99|Fairmount Park    99|Dunbar Southlands		97|
 
 | Portland   							 |  Seattle  					        | Vancouver   					|
-|--------------------------|----------------------------|-----------------------|
-|Hayhurst  			 				 95|International District  92.5|Killarney						94|
-|Centennial              95|Holly Park  	      	    93|Marpole					 	  95|
-|Bridgeton             95.5|Pioneer Square   	        94|Oakridge							95|
-|Mill Park         			 96|University District     94.5|Shaugnessy						95|
-|Portland Downtown       96|Belltown      					  95|Victoria-Fraserview	95|
+|-------------------------:|---------------------------:|----------------------:|
+|Hayhurst  			 				 95|International District  91.5|Killarney					94.5|
+|Bridgeton               96|Pioneer Square  	      	92|Marpole					 	  95|
+|Mill Park               96|South Beacon Hill  	    93.5|Shaugnessy						95|
+|Old Town/Chinatown      96|Central Business District 95|Victoria-Fraserview	95|
+|Powellhurst-Gilbert     96|Pinehurst      					  95|Arbutus Ridge				96|
 
 ### How does overall guest satisfaction relate to location?
 
-Interestingly, we failed to find a meaningful association between neighbourhood median price and median ratings
+We found weak evidence of a negative relationship between price and rating overall, and in Portland and Seattle, with Seattle showing the stronger relationship. We found strong evidence of a positive relationship between price and rating in Vancouver.
 
-![nb_med_price_vs_ratings]({{site.baseurl}}/assets/img/blog/nb_med_price_vs_ratings.png)
-
-This is pretty good news for the budget traveler!
 
 ### Which listing features are most closely related to guest satisfaction?
 

@@ -114,15 +114,15 @@ def conv_curr_cols(df, curr_cols, curr_conv_func):
     return df_cp
 
 
-def backfill_missing_prices(calendar_df, two_listings_df):
+def backfill_missing_prices(calendar_df, miss_price_vals_df):
     """Backfill missing price data for two listings in calendar dataset."""
     week_delta = pd.Timedelta(1, unit='w')
     calendar_df_cp = calendar_df.copy()
-    for index in two_listings_df.index:
-        listing_id = two_listings_df.loc[index]['listing_id']
-        one_week_ago = two_listings_df.loc[index]['date'] - week_delta
-        mask = ((calendar_df_cp['listing_id'] == listing_id) &
-                (calendar_df_cp['date'] == one_week_ago))
+    for index in miss_price_vals_df.index:
+        listing_id = miss_price_vals_df.loc[index]['listing_id']
+        one_week_ago = miss_price_vals_df.loc[index]['date'] - week_delta
+        mask = ((calendar_df_cp['listing_id'] == listing_id) & 
+               (calendar_df_cp['date'] == one_week_ago))
         price = calendar_df_cp[mask]['price'].values[0]
         calendar_df_cp.loc[index, 'price'] = price
     return calendar_df_cp
@@ -256,9 +256,10 @@ if __name__ == '__main__':
     #
 
     drop_cols = set(prop_missing_vals_df(listings_df, axis=0).index)
-    more_drop_cols = {'description', 'house_rules', 'name', 'space',
-                      'summary', 'calendar_updated', 'host_location',
-                      'host_name', 'host_neighbourhood', 'host_picture_url',
+    more_drop_cols = {'interaction', 'neighborhood_overview', 'description',
+                      'house_rules', 'name', 'space', 'summary',
+                      'calendar_updated', 'host_location', 'host_name',
+                      'host_neighbourhood', 'host_picture_url',
                       'host_thumbnail_url', 'host_url', 'host_verifications',
                       'is_location_exact', 'jurisdiction_names',
                       'listing_url', 'market', 'name', 'picture_url',
@@ -266,12 +267,12 @@ if __name__ == '__main__':
                       'minimum_maximum_nights', 'maximum_maximum_nights',
                       'minimum_minimum_nights', 'minimum_nights_avg_ntm',
                       'maximum_nights_avg_ntm', 'last_scraped',
-                      'calendar_last_scraped', 'country', 'country_code',
-                      'experiences_offered', 'has_availability',
-                      'host_has_profile_pic', 'smart_location', 'street',
-                      'state', 'host_listings_count',
-                      'host_total_listings_count', 'neighbourhood',
-                      'zipcode', 'number_of_reviews_ltm'}
+                      'calendar_last_scraped',
+                      'country', 'country_code', 'experiences_offered',
+                      'has_availability', 'host_has_profile_pic',
+                      'smart_location', 'street', 'state',
+                      'host_listings_count', 'host_total_listings_count',
+                      'neighbourhood', 'zipcode', 'number_of_reviews_ltm'}
     drop_cols = drop_cols.union(more_drop_cols)
     listings_df = listings_df.drop(columns=drop_cols)
     listings_df = alphabetize_cols(listings_df)
@@ -322,7 +323,8 @@ if __name__ == '__main__':
                                         ord_cat_cols)
     # some float variables
     conv_dtypes['float'] = {'cleaning_fee', 'extra_people', 'price',
-                            'security_deposit', 'host_response_rate'}
+                            'security_deposit', 'host_response_rate',
+                            'host_acceptance_rate'}
     listings_df = conv_cols(listings_df, conv_dtypes, conv_to_float, 'float')
 
     #
@@ -352,6 +354,8 @@ if __name__ == '__main__':
     impute_vals['security_deposit'] = 0
     impute_vals['cleaning_fee'] = \
         listings_df['cleaning_fee'].dropna().median()
+    impute_vals['host_acceptance_rate'] = \
+        listings_df['host_acceptance_rate'].dropna().median()
     for col in ['host_response_rate', 'host_response_time']:
         impute_vals[col] = listings_df[col].mode().values[0]
     # impute all missing values
@@ -379,7 +383,7 @@ if __name__ == '__main__':
     miss_cal_idx = miss_vals_df.reset_index(level=0)\
                    .groupby(['city', 'listing_id'])['listing_id'].count()
     listing_ids = {index[1] for index in
-                   miss_cal_idx[miss_cal_idx > 7].index}
+                   miss_cal_idx[miss_cal_idx > 8].index}
     list_ids_mask = ~ listings_df['id'].apply(lambda x: x in listing_ids)
     listings_df = listings_df[list_ids_mask]
     cal_ids_mask = ~ calendar_df['listing_id']\
@@ -390,7 +394,12 @@ if __name__ == '__main__':
     #
     # enforce dtypes in calendar dataset
     #
-
+    miss_vals_df = calendar_df.loc[calendar_df.isna().sum(axis=1) > 0]
+    miss_cal_idx = miss_vals_df[miss_vals_df['listing_id'] == 6132497].index
+    calendar_df.loc[miss_cal_idx, 'minimum_nights'] = 1.0
+    calendar_df.loc[miss_cal_idx, 'maximum_nights'] = 28.0
+    miss_price_vals_df = miss_vals_df[miss_vals_df['listing_id'] == 14237741]
+    calendar_df = backfill_missing_prices(calendar_df, miss_price_vals_df)
     calendar_df.loc[:, 'date'] = calendar_df['date'].astype('datetime64')
     conv_dtypes = defaultdict(set)
     conv_dtypes['bool'] = {'available'}
@@ -403,7 +412,7 @@ if __name__ == '__main__':
     #
 
     listing_ids = [index[1] for index
-                   in miss_cal_idx[miss_cal_idx <= 7].index]
+                   in miss_cal_idx[miss_cal_idx <= 8].index]
     cal_id_mask = (calendar_df['listing_id'].
                    apply(lambda x: x in listing_ids) &
                    (calendar_df['price'].isna()))
@@ -414,12 +423,11 @@ if __name__ == '__main__':
     # synchronize date column in calendar dataset
     #
 
-    min_date = calendar_df.loc['seattle']['date'].min()
-    max_date = calendar_df.loc['vancouver']['date'].max()
-    cal_date_mask = ((calendar_df['date'] >= min_date) &
-                     (calendar_df['date'] <= max_date))
+    maxmin_date = '2020-02-22'
+    minmax_date = '2021-02-13'
+    cal_date_mask = ((calendar_df['date'] >= maxmin_date) &
+                     (calendar_df['date'] <= minmax_date))
     calendar_df = calendar_df[cal_date_mask]
-    calendar_df = backfill_missing_prices(calendar_df, two_listings_df)
 
     #
     # create amenities features
