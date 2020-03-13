@@ -58,6 +58,8 @@ We found some evidence that neighbourhoods closer to downtown were more expensiv
 
 ### How do listing prices change over time?
 
+Since historical booking data was unavailable, to look at price trends we analyzed the booking calendar, that is the price to book each listing for each day for the next 12 months.
+
 We found an expected weekly trend in overall price, as well as a seasonal trend, with a steady increase in price from early spring to summer. Price declined again reaching a low around the 2021 winter holidays but then strangely rising again in January-February 2021.
 
 Price by city showed similar patterns -- weekly price fluctuations and a steady increase reaching a maximum in late summer but there were some clear differences. The weekly price trend is much less pronounced in Vancouver than Seattle and Portland, while the summer price trend is much more pronounced in Seattle than Vancouver or Portland. Seattle and Portland prices both show the January-February 2021 increase we saw overall but Vancouver price does not.
