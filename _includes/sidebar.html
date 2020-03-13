@@ -1,0 +1,20 @@
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+
+  <nav class="sidebar-nav">
+
+    <a class="sidebar-nav-item{% if page.url == '/wrangling/' %} active{% endif %}" href="{{ site.baseurl }}/process/">Data wrangling</a>
+    <a class="sidebar-nav-item{% if page.url == '/analysis-and-modeling/' %} active{% endif %}" href="{{ site.baseurl }}/explore/">Analysis and Modeling</a>
+
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; {{ site.time | date: '%Y' }}.
+    </p>
+  </div>
+</div>
