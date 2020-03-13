@@ -88,7 +88,7 @@ Among neighbourhoods with at least 10 listings, the 5 neighbourhoods with highes
 |Old Town/Chinatown      96|Central Business District 95|Victoria-Fraserview	95|
 |Powellhurst-Gilbert     96|Pinehurst      					  95|Arbutus Ridge				96|
 
-### How does overall guest satisfaction relate to location?
+### How do listing prices in neighbourhoods relate to guest satisfaction?
 
 We found weak evidence of a negative relationship between price and rating overall, and in Portland and Seattle, with Seattle showing the stronger relationship. We found strong evidence of a positive relationship between price and rating in Vancouver.
 
