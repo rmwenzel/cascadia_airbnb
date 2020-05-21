@@ -4,7 +4,7 @@ As a frequent Airbnb guest in Vancouver BC, Seattle WA, and Portland OR, I wante
 
 I used the most recent AirBnb data available for all three cities (February 2020) from [InsideAirBnb](http://insideairbnb.com/get-the-data.html) and cleaned and analyzed it using standard Python tools.
 
-The results are also summarized in a [blog post](https://rmwenzel.com/blog/project-reviews/2020-03-02-cascadia-airbnb/) (with visuals!) 
+For easier to read versions of the notebooks, see the [project website](https://rmwenzel.com/cascadia-airbnb/)
 
 ## Requirements
 
